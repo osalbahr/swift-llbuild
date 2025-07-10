@@ -331,12 +331,12 @@ package.targets.first { $0.name == "llbuildBasic" }?.linkerSettings = [
 // FIXME: when the SupportedPlatforms availability directive is updated and
 // the platform port is in sync with this directive, these conditions can
 // be folded up with .when(platforms:_) clauses.
-#if os(OpenBSD)
+#if os(Linux)
 if let target = package.targets.first(where: { $0.name == "llbuildCore"}) {
-    target.cSettings = [.unsafeFlags(["-I/usr/local/include"])]
+    target.cSettings = [.unsafeFlags(["-I@@HOMEBREW_PREFIX@@/opt/sqlite3/include"])]
     target.linkerSettings = [
         .linkedLibrary("sqlite3"),
-        .unsafeFlags(["-L/usr/local/lib"])
+        .unsafeFlags(["-L@@HOMEBREW_PREFIX@@/opt/sqlite3/lib"])
     ]
 }
 #endif
